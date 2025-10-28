@@ -1,0 +1,12 @@
+# File segreti
+.env
+
+# Cartelle di cache di Python
+__pycache__/
+*.pyc
+
+# La nostra "Dispensa Magica" (verrà ricreata sul server)
+faiss_index/
+
+# La cache del "Traduttore Automatico"
+.cache/
