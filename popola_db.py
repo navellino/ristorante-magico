@@ -27,7 +27,7 @@ print(f"Ho sminuzzato il testo in {len(testi_sminuzzati)} pezzi.")
 # 3. CREA IL "TRADUTTORE" (API)
 print("Sto preparando il 'Traduttore' (API)...")
 embeddings = HuggingFaceHubEmbeddings(
-    repo_id="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", 
+    repo_id="sentence-transformers/all-MiniLM-L6-v2", 
     huggingfacehub_api_token=os.getenv("HF_TOKEN")
 )
 

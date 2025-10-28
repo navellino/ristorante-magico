@@ -48,7 +48,7 @@ llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
 
 print("Accensione cucina: Carico il 'Traduttore Automatico' (Locale)...")
 embeddings = HuggingFaceHubEmbeddings(
-    repo_id="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", 
+    repo_id="sentence-transformers/all-MiniLM-L6-v2", 
     huggingfacehub_api_token=os.getenv("HF_TOKEN")
 )
 
