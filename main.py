@@ -16,7 +16,7 @@ from operator import itemgetter # Un "utensile" per prendere pezzi dai dizionari
 
 # Utensili per la Dispensa Magica
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEndpointEmbeddings
+from langchain_community.embeddings import HuggingFaceHubEmbeddings
 
 # 2. Carichiamo la nostra "scheda telefonica" segreta di Google
 load_dotenv()
@@ -47,9 +47,9 @@ print("Accensione cucina: Carico lo 'Chef Magico' (Gemini)...")
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
 
 print("Accensione cucina: Carico il 'Traduttore Automatico' (Locale)...")
-embeddings = HuggingFaceEndpointEmbeddings(
-    model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", 
-    api_key=os.getenv("HF_TOKEN")
+embeddings = HuggingFaceHubEmbeddings(
+    repo_id="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", 
+    huggingfacehub_api_token=os.getenv("HF_TOKEN")
 )
 
 print("Accensione cucina: Carico la 'Dispensa Magica' (faiss_index)...")

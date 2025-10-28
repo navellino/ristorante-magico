@@ -7,7 +7,7 @@ from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 
 # --- Importiamo il traduttore API corretto ---
-from langchain_huggingface import HuggingFaceEndpointEmbeddings
+from langchain_community.embeddings import HuggingFaceHubEmbeddings
 
 print("Avvio il caricamento della conoscenza...")
 
@@ -26,9 +26,9 @@ print(f"Ho sminuzzato il testo in {len(testi_sminuzzati)} pezzi.")
 
 # 3. CREA IL "TRADUTTORE" (API)
 print("Sto preparando il 'Traduttore' (API)...")
-embeddings = HuggingFaceEndpointEmbeddings(
-    model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", 
-    api_key=os.getenv("HF_TOKEN")
+embeddings = HuggingFaceHubEmbeddings(
+    repo_id="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", 
+    huggingfacehub_api_token=os.getenv("HF_TOKEN")
 )
 
 print("Sto creando l'indice magico (la dispensa)...")
