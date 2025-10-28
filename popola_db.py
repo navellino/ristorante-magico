@@ -7,7 +7,7 @@ from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 
 # --- NOVITÀ: Importiamo il nostro "Traduttore Automatico" locale ---
-from langchain_huggingface import HuggingFaceInferenceAPIEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 
 print("Avvio il caricamento della conoscenza...")
 
@@ -28,7 +28,7 @@ print(f"Ho sminuzzato il testo in {len(testi_sminuzzati)} pezzi.")
 # Diciamo a LangChain di usare il nostro "Mini-Traduttore" locale
 # Scegliamo un modello piccolo e multilingue (ottimo per l'italiano)
 print("Sto preparando il 'Traduttore Automatico' locale...")
-embeddings = HuggingFaceInferenceAPIEmbeddings(
+embeddings = HuggingFaceEndpointEmbeddings(
     model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", 
     api_key=os.getenv("HF_TOKEN")
 )
