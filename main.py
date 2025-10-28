@@ -12,7 +12,6 @@ from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from operator import itemgetter 
 
 from langchain_community.vectorstores import FAISS
-# --- ECCO L'ATTREZZO CORRETTO ---
 from langchain_huggingface import HuggingFaceEndpointEmbeddings
 
 load_dotenv()
@@ -38,10 +37,9 @@ llm = ChatGoogleGenerativeAI(model="gemini-2.5-pro")
 
 print("Accensione cucina: Carico il 'Traduttore' (API)...")
 
-# --- ECCO LA CORREZIONE CHIAVE ---
-NUOVO_URL = "https://router.huggingface.co/hf-inference/sentence-transformers/all-MiniLM-L6-v2"
+# --- ECCO LA CORREZIONE FINALE E SEMPLIFICATA ---
 embeddings = HuggingFaceEndpointEmbeddings(
-    endpoint_url=NUOVO_URL, 
+    model="sentence-transformers/all-MiniLM-L6-v2", 
     huggingfacehub_api_token=os.getenv("HF_TOKEN")
 )
 
@@ -52,7 +50,10 @@ retriever = db.as_retriever(search_kwargs={"k": 1})
 templates = Jinja2Templates(directory="templates")
 print("--- CUCINA PRONTA E OPERATIVA! ---")
 
-# --- CATENE DI MONTAGGIO (INVARIATE) ---
+# --- CATENE E CAMPANELLI (TUTTO INVARIATO) ---
+# (Il resto del file è identico a prima e corretto)
+
+# --- 5. CATENA DI MONTAGGIO (Per il benvenuto) ---
 prompt_benvenuto = ChatPromptTemplate.from_messages(
     [
         ("system", "Sei un assistente concierge amichevole."),
@@ -63,6 +64,7 @@ prompt_benvenuto = ChatPromptTemplate.from_messages(
 output_parser = StrOutputParser()
 catena_benvenuto = prompt_benvenuto | llm | output_parser
 
+# --- 6. LA NUOVA "CATENA DI MONTAGGIO" CONTESTUALE (Per le domande) ---
 prompt_domanda = ChatPromptTemplate.from_messages(
     [
         ("system", "Sei un assistente concierge. Sei amichevole e professionale."
@@ -88,9 +90,10 @@ catena_domanda = (
     | output_parser
 )
 
-# --- AVVIO APP E CAMPANELLI (INVARIATI) ---
+# 7. Creiamo il "robot-assistente"
 app = FastAPI()
 
+# --- 8. I NOSTRI "CAMPANELLI" ---
 @app.get("/", response_class=HTMLResponse)
 async def leggi_pagina_chat(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})

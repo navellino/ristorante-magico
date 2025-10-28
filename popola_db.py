@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-
-# --- ECCO L'ATTREZZO CORRETTO ---
 from langchain_huggingface import HuggingFaceEndpointEmbeddings
 
 print("Avvio il caricamento della conoscenza...")
@@ -21,12 +19,9 @@ print(f"Ho sminuzzato il testo in {len(testi_sminuzzati)} pezzi.")
 
 print("Sto preparando il 'Traduttore' (API)...")
 
-# --- ECCO LA CORREZIONE CHIAVE ---
-# Costruiamo l'URL completo = (Nuovo Indirizzo API) + (Nome Modello)
-NUOVO_URL = "https://router.huggingface.co/hf-inference/sentence-transformers/all-MiniLM-L6-v2"
-
+# --- ECCO LA CORREZIONE FINALE E SEMPLIFICATA ---
 embeddings = HuggingFaceEndpointEmbeddings(
-    endpoint_url=NUOVO_URL, 
+    model="sentence-transformers/all-MiniLM-L6-v2", 
     huggingfacehub_api_token=os.getenv("HF_TOKEN")
 )
 
