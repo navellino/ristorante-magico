@@ -1,16 +1,16 @@
 import os
 import sqlite3
 from datetime import datetime
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-# Carichiamo le variabili d'ambiente (anche se non ci servono ora, è buona norma)
+# Carichiamo le variabili d'ambiente (anche se per ora non le usiamo, è buona norma)
 load_dotenv()
 
 DB_FILE = "calendario.db"
 
-# --- Funzioni di Supporto (le nostre funzioni intelligenti) ---
+# --- Funzioni di Supporto (Le nostre funzioni intelligenti) ---
 
 def calcola_contesto_stagionale(data_check_in: str) -> str:
     """Legge una data e restituisce un contesto stagionale."""
@@ -36,12 +36,10 @@ def get_contesto_utente(booking_id: str) -> dict:
     """Prende il booking_id e restituisce un contesto completo dal database."""
     print(f"Richiesta contesto per: {booking_id}")
     
-    # Controlliamo se il DB esiste. Se no, lo creiamo al volo.
+    # Controlliamo se il DB esiste
     if not os.path.exists(DB_FILE):
-        print("ATTENZIONE: Database non trovato. Eseguo crea_calendario.py...")
-        # (Qui potremmo chiamare la funzione di creazione, 
-        # ma per Render è meglio assicurarsi che il file sia caricato)
-        return {"errore": "Database non ancora pronto."}
+        print(f"ERRORE: Database {DB_FILE} non trovato!")
+        return {"errore": f"Database {DB_FILE} non trovato. Assicurati che sia caricato su Render."}
 
     connessione = sqlite3.connect(DB_FILE)
     connessione.row_factory = sqlite3.Row 
@@ -98,4 +96,4 @@ def ricevi_contesto(booking_id: str):
 
 @app.get("/")
 def root():
-    return {"messaggio": "Server Contesto Host - Attivo"}
+    return {"messaggio": "Server Contesto Host - Attivo. Pronto per Botpress."}

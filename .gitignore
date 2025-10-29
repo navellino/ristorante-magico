@@ -5,5 +5,8 @@
 __pycache__/
 *.pyc
 
-# La cache del "Traduttore Automatico"
+# La vecchia Dispensa Magica (non più usata qui)
+faiss_index/
+
+# La cache del "Traduttore Automatico" (non più usata qui)
 .cache/
